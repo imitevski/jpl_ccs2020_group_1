@@ -1,2 +1,2 @@
-# jpl_summer_school_group_1
-JPL summer school group # 1
+# JPL Summer School 2020, group # 1
+
