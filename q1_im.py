@@ -22,7 +22,7 @@ plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
 plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('legend', fontsize=SMALL_SIZE)  	 # legend fontsize
-plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+plt.rc('figure', titlesize=MEDIUM_SIZE)  # fontsize of the figure title
 
 def weight(lat, lon):
 	'''
@@ -67,6 +67,10 @@ def q1_im_net():
 	r1 = (rsdt*weight(rsdt.lat, rsdt.lon)).mean(dim=['lat','lon'])
 	r3 = (rsut*weight(rsut.lat, rsut.lon)).mean(dim=['lat','lon'])
 	
+	#r2 = rlut.mean(dim=['lat','lon'])
+	#r1 = rsdt.mean(dim=['lat','lon'])
+	#r3 = rsut.mean(dim=['lat','lon'])
+	
 	r_year = (r1 - r2 - r3).sel(time=slice('2001','2011')).groupby('time.year').mean('time')
 		
 	axes = fig.add_subplot(1,2,1)
@@ -77,7 +81,7 @@ def q1_im_net():
 	plt.legend(loc = 0)
 	
 	axes = fig.add_subplot(1,2,2)
-	plt.plot(r_year.time, r_year, linewidth = 3, color = 'red', label='net radiation (+ downward)')
+	plt.plot(r_year.year, r_year, linewidth = 3, color = 'red', label='net radiation (+ downward)')
 	axes.axhline(y = r_year.mean(), color = 'red', linestyle='dotted', label=str(np.round(np.array(r_year.mean()), 2))+' W/m2, 2001-2011 mean')
 	plt.ylabel('W/m2')
 	plt.xlabel('year')
