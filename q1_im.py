@@ -17,12 +17,14 @@ SMALL_SIZE = 15
 MEDIUM_SIZE = 20
 BIGGER_SIZE = 25
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
-plt.rc('axes', titlesize=BIGGER_SIZE)     # fontsize of the axes title
+plt.rc('axes', titlesize=MEDIUM_SIZE)     # fontsize of the axes title
 plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
 plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('legend', fontsize=SMALL_SIZE)  	 # legend fontsize
 plt.rc('figure', titlesize=MEDIUM_SIZE)  # fontsize of the figure title
+
+ds = "/glade/work/im2527/jpl_ds_im/"
 
 def weight(lat, lon):
 	'''
@@ -36,9 +38,13 @@ def weight(lat, lon):
 		weight = xr.DataArray(weight / weight.mean(), [('lat',lat)])
 	return weight
 
-rlut = xr.open_dataset('nasa_ceres_rlut_200003_201206_0f360f2.5_-90f90f2_-999999.nc').rlut
-rsdt = xr.open_dataset('nasa_ceres_rsdt_200003_201206_0f360f2.5_-90f90f2_-999999.nc').rsdt
-rsut = xr.open_dataset('nasa_ceres_rsut_200003_201206_0f360f2.5_-90f90f2_-999999.nc').rsut
+#rlut = xr.open_dataset(ds+'nasa_ceres_rlut_200003_201206_0f360f2.5_-90f90f2_-999999.nc').rlut
+#rsdt = xr.open_dataset(ds+'nasa_ceres_rsdt_200003_201206_0f360f2.5_-90f90f2_-999999.nc').rsdt
+#rsut = xr.open_dataset(ds+'nasa_ceres_rsut_200003_201206_0f360f2.5_-90f90f2_-999999.nc').rsut
+
+rlut = xr.open_dataset(ds+'rlut_CERES-EBAF_L3B_Ed2-6r_200003-201206.nc').rlut
+rsdt = xr.open_dataset(ds+'rsdt_CERES-EBAF_L3B_Ed2-6r_200003-201206.nc').rsdt
+rsut = xr.open_dataset(ds+'rsut_CERES-EBAF_L3B_Ed2-6r_200003-201206.nc').rsut
 
 def q1_im_all(): 
 	fig = plt.figure()
@@ -74,15 +80,15 @@ def q1_im_net():
 	r_year = (r1 - r2 - r3).sel(time=slice('2001','2011')).groupby('time.year').mean('time')
 		
 	axes = fig.add_subplot(1,2,1)
-	plt.plot(rlut.time, r1 - r2 - r3, linewidth = 3, color = 'red', label='net radiation (+ downward)')
+	plt.plot(rlut.time, r1 - r2 - r3, linewidth = 3, color = 'black', label='net radiation (+ downward)')
 	plt.ylabel('W/m2')
 	plt.xlabel('year')
 	plt.title("a) monthly")
 	plt.legend(loc = 0)
 	
 	axes = fig.add_subplot(1,2,2)
-	plt.plot(r_year.year, r_year, linewidth = 3, color = 'red', label='net radiation (+ downward)')
-	axes.axhline(y = r_year.mean(), color = 'red', linestyle='dotted', label=str(np.round(np.array(r_year.mean()), 2))+' W/m2, 2001-2011 mean')
+	plt.plot(r_year.year, r_year, linewidth = 3, color = 'black', label='net radiation (+ downward)')
+	axes.axhline(y = r_year.mean(), color = 'black', linestyle='dotted', label=str(np.round(np.array(r_year.mean()), 2))+' W/m2, 2001-2011 mean')
 	plt.ylabel('W/m2')
 	plt.xlabel('year')
 	plt.title("b) yearly")
@@ -92,5 +98,5 @@ def q1_im_net():
 	plt.savefig('q1_im_net.pdf')
 	plt.show()
 
-#q1_im_all()
+q1_im_all()
 q1_im_net()
