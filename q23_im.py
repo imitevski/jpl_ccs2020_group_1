@@ -33,3 +33,11 @@ print(dt_ocn_100,"K/yr for 100m")
 print(dt_ocn_700,"K/yr for 700m")
 print(dt_ocn_2000,"K/yr for 2000m")
 
+'''
+answers
+2.3926246368530784 K/yr, atmosphere
+0.4804204593060898 K/yr for 10m
+0.04804204593060898 K/yr for 100m
+0.0068631494186584254 K/yr for 700m
+0.002402102296530449 K/yr for 2000m
+'''
