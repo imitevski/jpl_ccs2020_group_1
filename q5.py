@@ -20,11 +20,11 @@ SMALL_SIZE = 8
 MEDIUM_SIZE = 20
 BIGGER_SIZE = 25
 plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
-plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
-plt.rc('axes', labelsize=SMALL_SIZE)    # fontsize of the x and y labels
-plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('legend', fontsize=SMALL_SIZE)  	 # legend fontsize
+plt.rc('axes', titlesize=MEDIUM_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=MEDIUM_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=MEDIUM_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=MEDIUM_SIZE)  	 # legend fontsize
 plt.rc('figure', titlesize=MEDIUM_SIZE)  # fontsize of the figure title
 
 ds = "/glade/work/im2527/jpl_ds/"
@@ -119,7 +119,7 @@ def q5_im_1():
 	Ts = (ts*weight(lat,lon,None)).mean(dim=['lat','lon'])
 		
 	fig = plt.figure()
-	fig.set_figwidth(fig.get_figwidth() * 1)
+	fig.set_figwidth(fig.get_figwidth() * 2)
 	fig.set_figheight(fig.get_figheight() * 1) 
 		
 	axes = fig.add_subplot(1,1,1)
@@ -138,7 +138,7 @@ def q5_im_1():
 	plot(np.arange(1980,2014), s_ocn('sst'), color = 'black', linestyle ='-',
 		markersize=10,linewidth=4,marker='o', label = 'SST, Southern Ocean')#+sl_s_ocn(10)+'K/yr')
 	plt.title('')
-	plt.legend(loc=0)
+	plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
 	#plt.xlim([2000.8,2012.2])
 	#plt.ylim([-0.1,0.67])
 	plt.xlabel('year')
@@ -296,9 +296,8 @@ def q5_im_2():
 	plt.show()
 
 
-#q5_im_1()
-q5_im_2()
-#q5_im_3()
+q5_im_1()
+#q5_im_2()
 
 
 #print(pd.Series(pac('sst')))
@@ -308,5 +307,4 @@ q5_im_2()
 #print( np.corrcoef(Ts - Ts[0], pac('sst'))[1][0] )
 
 #print(  pd.Series.corr( pd.Series(pac('sst')), pd.Series(Ts - Ts[0]))  )
-
 
